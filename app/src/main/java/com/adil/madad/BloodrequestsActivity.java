@@ -14,48 +14,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-class BloodRequest {
-    private String username, address, phno, bloodType;
-    BloodRequest(String name, String address, String phno, String bloodType){
-        this.username = name;
-        this.address = address;
-        this.phno = phno;
-        this.bloodType = bloodType;
-    }
-
-    String getUsername(){
-        return username;
-    }
-
-    void setUsername(String username){
-        this.username = username;
-    }
-
-    String getAddress(){
-        return address;
-    }
-
-    void setAddress(String address){
-        this.address = address;
-    }
-
-    String getPhno(){
-        return phno;
-    }
-
-    void setPhno(String phno){
-        this.phno = phno;
-    }
-
-    String getBloodType(){
-        return bloodType;
-    }
-
-    void setBloodType(String bloodType){
-        this.bloodType = bloodType;
-    }
-}
-
 public class BloodrequestsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -87,11 +45,11 @@ public class BloodrequestsActivity extends AppCompatActivity {
 
         requests = new ArrayList<>();
 
-        requests.add(new BloodRequest("Adil Alam", "PIMS Hospital", "03143971614", "O+ve"));
-        requests.add(new BloodRequest("Muzamil Hussain", "Al-Shifa Hospital", "03063364241", "AB-ve"));
-        requests.add(new BloodRequest("Haysam Bin Tahir", "Maroof Hospital", "+92143971614", "A+ve"));
-        requests.add(new BloodRequest("Muhammad Ashjaeen", "Islamabad Hospital", "03143971614", "B-ve"));
-        requests.add(new BloodRequest("Akash Ali", "Islamabad Hospital", "03083694161", "AB+ve"));
+        requests.add(new BloodRequest("Adil Alam","","", "PIMS Hospital", "03143971614", "O+ve"));
+        requests.add(new BloodRequest("Muzamil Hussain", "","","Al-Shifa Hospital", "03063364241", "AB-ve"));
+        requests.add(new BloodRequest("Haysam Bin Tahir","","", "Maroof Hospital", "+92143971614", "A+ve"));
+        requests.add(new BloodRequest("Muhammad Ashjaeen","","", "Islamabad Hospital", "03143971614", "B-ve"));
+        requests.add(new BloodRequest("Akash Ali","","", "Islamabad Hospital", "03083694161", "AB+ve"));
 
         MyRvAdapter = new BloodRvAdapter(requests, this);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);

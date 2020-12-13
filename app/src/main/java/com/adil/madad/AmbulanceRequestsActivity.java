@@ -17,38 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-class AmbulanceRequest {
-    private String username, address, phno;
-    AmbulanceRequest(String name, String address, String phno){
-        this.username = name;
-        this.address = address;
-        this.phno = phno;
-    }
 
-    String getUsername(){
-        return username;
-    }
-
-    void setUsername(String username){
-        this.username = username;
-    }
-
-    String getAddress(){
-        return address;
-    }
-
-    void setAddress(String address){
-        this.address = address;
-    }
-
-    String getPhno(){
-        return phno;
-    }
-
-    void setPhno(String phno){
-        this.phno = phno;
-    }
-}
 
 public class AmbulanceRequestsActivity extends AppCompatActivity {
 
@@ -93,11 +62,11 @@ public class AmbulanceRequestsActivity extends AppCompatActivity {
         });
         requests = new ArrayList<>();
 
-        requests.add(new AmbulanceRequest("Adil Alam", "PIMS Hospital", "03143971614"));
-        requests.add(new AmbulanceRequest("Muzamil Hussain", "Al-Shifa Hospital", "03063364241"));
-        requests.add(new AmbulanceRequest("Haysam Bin Tahir", "Maroof Hospital", "+92143971614"));
-        requests.add(new AmbulanceRequest("Muhammad Ashjaeen", "Islamabad Hospital", "03143971614"));
-        requests.add(new AmbulanceRequest("Akash Ali", "Islamabad Hospital", "03083694161"));
+        requests.add(new AmbulanceRequest("Adil Alam","1","","", "PIMS Hospital", "03143971614"));
+        requests.add(new AmbulanceRequest("Muzamil Hussain","1","","", "Al-Shifa Hospital", "03063364241"));
+        requests.add(new AmbulanceRequest("Haysam Bin Tahir","1","","", "Maroof Hospital", "+92143971614"));
+        requests.add(new AmbulanceRequest("Muhammad Ashjaeen","1","","", "Islamabad Hospital", "03143971614"));
+        requests.add(new AmbulanceRequest("Akash Ali","1","","", "Islamabad Hospital", "03083694161"));
 
         MyRvAdapter = new AmbulanceRvAdapter(requests, this);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);

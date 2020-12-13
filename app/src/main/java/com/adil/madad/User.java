@@ -1,6 +1,8 @@
 package com.adil.madad;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     String id, name, email, img;
     Boolean isHospital;
 

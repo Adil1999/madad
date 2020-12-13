@@ -36,7 +36,7 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull BloodRvAdapter.MyViewHolder holder, final int position) {
-        holder.name.setText(ls.get(position).getUsername());
+        holder.name.setText(ls.get(position).getName());
         holder.number.setText(ls.get(position).getPhno());
         holder.address.setText(ls.get(position).getAddress());
         holder.bloodType.setText(ls.get(position).getBloodType());

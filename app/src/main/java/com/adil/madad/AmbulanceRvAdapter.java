@@ -43,8 +43,8 @@ public class AmbulanceRvAdapter extends RecyclerView.Adapter<AmbulanceRvAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AmbulanceRvAdapter.MyViewHolder holder, final int position) {
-        holder.name.setText(ls.get(position).getUsername());
-        holder.number.setText(ls.get(position).getPhno());
+        holder.name.setText(ls.get(position).getName());
+        holder.number.setText(ls.get(position).getNumber());
         holder.address.setText(ls.get(position).getAddress());
         holder.isAccept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class AmbulanceRvAdapter extends RecyclerView.Adapter<AmbulanceRvAdapter.
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:"+ls.get(position).getPhno()));
+                        intent.setData(Uri.parse("tel:"+ls.get(position).getNumber()));
                         c.startActivity(intent);
                         ((Activity)c).finish();
                     }

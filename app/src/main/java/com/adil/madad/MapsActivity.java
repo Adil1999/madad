@@ -114,21 +114,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestBlood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, RequestBloodActivity.class));
+                Intent intent = new Intent(MapsActivity.this, RequestBloodActivity.class);
+                intent.putExtra("UserData", userData);
+                startActivity(intent);
             }
         });
 
         requestAmbulance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, RequestAmbulanceActivity.class));
+                Intent intent = new Intent(MapsActivity.this, RequestAmbulanceActivity.class);
+                intent.putExtra("UserData", userData);
+                startActivity(intent);
             }
         });
 
         findDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, FindDocActivity.class));
+                Intent intent = new Intent(MapsActivity.this, FindDocActivity.class);
+                intent.putExtra("UserData", userData);
+                startActivity(intent);
             }
         });
 
