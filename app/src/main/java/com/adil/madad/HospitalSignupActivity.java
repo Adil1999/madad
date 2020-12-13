@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class HospitalSignupActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView user;
+    TextView _user;
     ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,9 @@ public class HospitalSignupActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.myAppBar);
         iv = toolbar.findViewById(R.id.image);
-        user = toolbar.findViewById(R.id.name);
-        iv.setVisibility(View.INVISIBLE);
-        user.setAlpha(0);
+        _user = toolbar.findViewById(R.id.name);
+        iv.setVisibility(View.GONE);
+        _user.setVisibility(View.GONE);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

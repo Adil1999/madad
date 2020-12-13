@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="start"
-    android:layoutDirection="ltr"
-    android:layout_gravity="start">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu"
-        android:icon="@drawable/ic_baseline_menu_24"
-        android:title="menu"
-        android:layout_gravity="start"
-        app:showAsAction="ifRoom"
-        />
+        android:id="@+id/action_logout"
+        android:title="Logout"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>
