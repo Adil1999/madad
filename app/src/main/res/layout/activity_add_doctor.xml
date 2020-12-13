@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddDoctorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/appbar"/>
+
+        <TextView
+            android:id="@+id/textViewField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Add a Doctor"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:background="#EAEAEA"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/licenseID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="License ID"
+                android:inputType="text"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact Number"
+                android:inputType="number"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Specialization/Area"
+                android:inputType="number"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/timings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Availability Time"
+                android:inputType="text"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="10dp"
+                android:text="Add Now"
+                android:textColor="#FFF"
+                android:background="@drawable/btn_background"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

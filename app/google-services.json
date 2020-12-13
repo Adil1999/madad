@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "421353482586",
+    "firebase_url": "https://madad-d95f4.firebaseio.com",
+    "project_id": "madad-d95f4",
+    "storage_bucket": "madad-d95f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421353482586:android:cdd9de9df958f7ed92ab63",
+        "android_client_info": {
+          "package_name": "com.adil.madad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421353482586-keagi6ueenmaumec24ud9tva25g71gqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adil.madad",
+            "certificate_hash": "8d7754a06db57b21e1881c273d9012d2252da57e"
+          }
+        },
+        {
+          "client_id": "421353482586-pds76frip78r06dov20mtk0s2pj1od1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhEwM4SDqo7bi622NmepsHQBAhmiv-01E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421353482586-pds76frip78r06dov20mtk0s2pj1od1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

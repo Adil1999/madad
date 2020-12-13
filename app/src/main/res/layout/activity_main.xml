@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/appbar"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_ambulance"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/textViewField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MADAD"
+        android:textSize="30dp"
+        android:gravity="center"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Login as patient"
+            android:textColor="#FFF"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_background"/>
+
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Login as Hospital"
+            android:textColor="#FFF"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_background"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
