@@ -37,7 +37,7 @@ public class RequestBloodActivity extends AppCompatActivity {
     User userData;
 
     EditText address, number, secondaryNumber;
-    String bloodType;
+    String bloodType = "O+";
     Spinner spinner;
     Button submit;
 
@@ -104,19 +104,19 @@ public class RequestBloodActivity extends AppCompatActivity {
                 String txt_sec = secondaryNumber.getText().toString().trim();
 
                 if (TextUtils.isEmpty(txt_address)) {
-                    Toast.makeText(RequestBloodActivity.this, "Pleae Enter Address", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RequestBloodActivity.this, "Please Enter Address", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (TextUtils.isEmpty(txt_number)) {
-                    Toast.makeText(RequestBloodActivity.this, "Pleae Enter Number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RequestBloodActivity.this, "Please Enter Number", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (TextUtils.isEmpty(txt_sec)) {
-                    Toast.makeText(RequestBloodActivity.this, "Pleae Enter Secondary Number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RequestBloodActivity.this, "Please Enter Secondary Number", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (TextUtils.isEmpty(txt_sec)) {
-                    Toast.makeText(RequestBloodActivity.this, "Pleae Enter Secondary Number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RequestBloodActivity.this, "Please Enter Secondary Number", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (TextUtils.isEmpty(bloodType)) {
@@ -147,7 +147,7 @@ public class RequestBloodActivity extends AppCompatActivity {
     private void confirm_request(String addr, String num1, String num2, String bloodType) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("BloodRequests").push().setValue(
-                new BloodRequest(userData.getName(), userData.getId(), userData.getImg(), addr, num1, bloodType)
+                new BloodRequest(userData.getName(), userData.getId(), userData.getImg(), addr, num1, num2, bloodType)
         );
     }
 }

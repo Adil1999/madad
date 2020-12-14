@@ -52,8 +52,7 @@ public class DoctorsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DoctorsActivity.this, FindDocActivity.class));
-                finish();
+                onBackPressed();
             }
         });
 
