@@ -11,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,7 +31,9 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
     private List<BloodRequest> ls;
     Context c;
 
-    BloodRvAdapter(List ls, Context c){
+    FirebaseUser fuser;
+
+    BloodRvAdapter(List ls, Context c) {
         this.ls = ls;
         this.c = c;
     }
@@ -38,7 +47,7 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BloodRvAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final BloodRvAdapter.MyViewHolder holder, final int position) {
         holder.name.setText(ls.get(position).getName());
         holder.number.setText(ls.get(position).getPhno());
         holder.address.setText(ls.get(position).getAddress());
@@ -57,9 +66,39 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:"+ls.get(position).getPhno()));
+                        intent.setData(Uri.parse("tel:" + ls.get(position).getPhno()));
                         c.startActivity(intent);
-                        ((Activity)c).finish();
+                        ((Activity) c).finish();
+                    }
+                });
+            }
+        });
+
+        holder.status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fuser = FirebaseAuth.getInstance().getCurrentUser();
+                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("BloodRequests");
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            BloodRequest br = ds.getValue(BloodRequest.class);
+                            if (br.getName().equals(ls.get(position).getName())
+                                    && br.getAddress().equals(ls.get(position).getAddress())
+                                    && br.getBloodType().equals(ls.get(position).getBloodType())
+                                    && br.getPhno().equals(ls.get(position).getPhno()))
+                            {
+                                String key = ds.getKey();
+                                ref.child(key).child("status").setValue("completed");
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
                 });
             }
@@ -75,7 +114,8 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
         TextView name, number, address, bloodType;
         Button isAccept, status;
         CircleImageView img;
-        public MyViewHolder(View itemView){
+
+        public MyViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.person_photo);
             name = itemView.findViewById(R.id.name);

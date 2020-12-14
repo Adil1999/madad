@@ -78,7 +78,9 @@ public class BloodrequestsActivity extends AppCompatActivity {
                 requests.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     BloodRequest br = ds.getValue(BloodRequest.class);
-                    requests.add(br);
+                    if(br.getStatus().equals("active")){
+                        requests.add(br);
+                    }
                 }
                 MyRvAdapter = new BloodRvAdapter(requests, BloodrequestsActivity.this);
                 rv.setAdapter(MyRvAdapter);

@@ -85,6 +85,16 @@
                 android:background="@drawable/btn_background"/>
 
             <Button
+                android:id="@+id/appointments"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Doctor Appointments"
+                android:textColor="#FFF"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn_background"/>
+
+            <Button
                 android:id="@+id/AmbulanceRequests"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -99,16 +109,6 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="Blood Requests"
-                android:textColor="#FFF"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/btn_background"/>
-
-            <Button
-                android:id="@+id/appointments"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:text="Doctor Appointments"
                 android:textColor="#FFF"
                 android:padding="10dp"
                 android:layout_margin="10dp"

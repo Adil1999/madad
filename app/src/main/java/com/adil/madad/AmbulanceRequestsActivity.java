@@ -84,7 +84,9 @@ public class AmbulanceRequestsActivity extends AppCompatActivity {
                 requests.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     AmbulanceRequest ar = ds.getValue(AmbulanceRequest.class);
-                    requests.add(ar);
+                    if(ar.getStatus().equals("active")){
+                        requests.add(ar);
+                    }
                 }
                 MyRvAdapter = new AmbulanceRvAdapter(requests, AmbulanceRequestsActivity.this);
                 rv.setAdapter(MyRvAdapter);
