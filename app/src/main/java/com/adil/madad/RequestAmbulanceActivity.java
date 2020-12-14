@@ -115,7 +115,7 @@ public class RequestAmbulanceActivity extends AppCompatActivity {
     private void confirm_request(String addr, String num1, String num2) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("AmbulanceRequests").push().setValue(
-                new AmbulanceRequest(userData.getName(), userData.getId(), userData.getImg(), addr, num1, num2)
+                new AmbulanceRequest(userData.getName(), userData.getId(), userData.getImg(), addr, num1, num2,"active")
         );
     }
 

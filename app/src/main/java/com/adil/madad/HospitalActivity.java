@@ -51,7 +51,8 @@ public class HospitalActivity extends AppCompatActivity {
     TextView nav_email;
     TextView nav_name;
 
-    Button addDoc, ambulanceRequests, bloodRequests;
+    Button addDoc, ambulanceRequests, bloodRequests, docAppointments, doctors;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,8 @@ public class HospitalActivity extends AppCompatActivity {
         addDoc = findViewById(R.id.AddDoc);
         ambulanceRequests = findViewById(R.id.AmbulanceRequests);
         bloodRequests = findViewById(R.id.BloodRequests);
+        docAppointments = findViewById(R.id.appointments);
+        doctors = findViewById(R.id.doctors);
 
         tv = toolbar.findViewById(R.id.title);
         dl = (DrawerLayout) findViewById(R.id.nav_drawer);
@@ -109,6 +112,21 @@ public class HospitalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(HospitalActivity.this, BloodrequestsActivity.class));
             }
+        });
+
+        docAppointments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HospitalActivity.this, AppointmentsActivity.class));
+            }
+        });
+
+        doctors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HospitalActivity.this, DoctorsActivity.class));
+            }
+
         });
     }
 

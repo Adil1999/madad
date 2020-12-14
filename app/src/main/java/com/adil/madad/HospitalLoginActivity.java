@@ -57,6 +57,7 @@ public class HospitalLoginActivity extends AppCompatActivity {
             }
         });
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
         login = findViewById(R.id.login);
         signup = findViewById(R.id.signup);

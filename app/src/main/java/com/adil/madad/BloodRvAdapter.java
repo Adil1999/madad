@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHolder> {
 
@@ -40,6 +43,7 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
         holder.number.setText(ls.get(position).getPhno());
         holder.address.setText(ls.get(position).getAddress());
         holder.bloodType.setText(ls.get(position).getBloodType());
+        Picasso.get().load(ls.get(position).getImg()).fit().centerCrop().into(holder.img);
         holder.isAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,14 +73,17 @@ public class BloodRvAdapter extends RecyclerView.Adapter<BloodRvAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, number, address, bloodType;
-        Button isAccept;
+        Button isAccept, status;
+        CircleImageView img;
         public MyViewHolder(View itemView){
             super(itemView);
+            img = itemView.findViewById(R.id.person_photo);
             name = itemView.findViewById(R.id.name);
             number = itemView.findViewById(R.id.number);
             address = itemView.findViewById(R.id.address);
             bloodType = itemView.findViewById(R.id.type);
             isAccept = itemView.findViewById(R.id.accept);
+            status = itemView.findViewById(R.id.status);
 
         }
 

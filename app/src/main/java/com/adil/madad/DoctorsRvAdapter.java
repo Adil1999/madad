@@ -33,6 +33,7 @@ public class DoctorsRvAdapter extends RecyclerView.Adapter<DoctorsRvAdapter.MyVi
         holder.name.setText(ls.get(position).name);
         holder.hospital.setText(ls.get(position).hospital);
         holder.timings.setText(ls.get(position).timmings);
+        holder.area.setText(ls.get(position).getArea());
     }
 
     @Override
@@ -41,12 +42,13 @@ public class DoctorsRvAdapter extends RecyclerView.Adapter<DoctorsRvAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name, hospital, timings;
+        TextView name, hospital, area, timings;
         Button contactNow;
         public MyViewHolder(View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.name);
             hospital = itemView.findViewById(R.id.address);
+            area = itemView.findViewById(R.id.area);
             timings = itemView.findViewById(R.id.timings);
             contactNow = itemView.findViewById(R.id.contact);
         }

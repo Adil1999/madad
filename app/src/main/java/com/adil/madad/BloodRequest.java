@@ -1,11 +1,11 @@
 package com.adil.madad;
 
 public class BloodRequest {
-    private String name, userId, img, address, phno, phno2, bloodType;
+    private String name, userId, img, address, phno, phno2, bloodType, status;
 
     BloodRequest(){}
 
-    public BloodRequest(String name, String userId, String img, String address, String phno, String num2, String bloodType) {
+    public BloodRequest(String name, String userId, String img, String address, String phno, String num2, String bloodType, String status) {
         this.name = name;
         this.userId = userId;
         this.img = img;
@@ -13,6 +13,15 @@ public class BloodRequest {
         this.phno = phno;
         this.phno2 = num2;
         this.bloodType = bloodType;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPhno2() {

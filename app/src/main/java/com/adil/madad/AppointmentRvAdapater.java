@@ -2,17 +2,13 @@ package com.adil.madad;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -20,36 +16,31 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AmbulanceRvAdapter extends RecyclerView.Adapter<AmbulanceRvAdapter.MyViewHolder> {
-    private List<AmbulanceRequest> ls;
+public class AppointmentRvAdapater extends RecyclerView.Adapter<AppointmentRvAdapater.MyViewHolder> {
+    private List<Appointment> ls;
     Context c;
     Runnable r;
     View.OnClickListener mMyOnClickListener;
 
-    AmbulanceRvAdapter(List ls, Context c){
+    public AppointmentRvAdapater(List<Appointment> ls, Context c) {
         this.ls = ls;
         this.c = c;
-        this.r = null;
     }
-
 
     @NonNull
     @Override
-    public AmbulanceRvAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(c).inflate(R.layout.ambulance_row, parent, false);
+    public AppointmentRvAdapater.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(c).inflate(R.layout.appointment_row, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AmbulanceRvAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull AppointmentRvAdapater.MyViewHolder holder, final int position) {
         holder.name.setText(ls.get(position).getName());
         holder.number.setText(ls.get(position).getNumber());
-        holder.address.setText(ls.get(position).getAddress());
-        Picasso.get().load(ls.get(position).getImg()).fit().centerCrop().into(holder.img);
         holder.isAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,14 +72,14 @@ public class AmbulanceRvAdapter extends RecyclerView.Adapter<AmbulanceRvAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name, number, address;
+        TextView name, number, doctor;
         Button isAccept, status;
         CircleImageView img;
         public MyViewHolder(View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.name);
             number = itemView.findViewById(R.id.number);
-            address = itemView.findViewById(R.id.address);
+            doctor = itemView.findViewById(R.id.doctor);
             isAccept = itemView.findViewById(R.id.accept);
             status = itemView.findViewById(R.id.status);
             img = itemView.findViewById(R.id.person_photo);

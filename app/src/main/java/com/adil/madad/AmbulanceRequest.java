@@ -1,18 +1,27 @@
 package com.adil.madad;
 
 public class AmbulanceRequest {
-    public String name, userId, img, address, number, secNumber;
+    public String name, userId, img, address, number, secNumber, status;
 
     AmbulanceRequest() {
     }
 
-    public AmbulanceRequest(String name, String userId, String img, String address, String number, String secNumber) {
+    public AmbulanceRequest(String name, String userId, String img, String address, String number, String secNumber, String status) {
         this.name = name;
         this.userId = userId;
         this.img = img;
         this.address = address;
         this.number = number;
         this.secNumber = secNumber;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUserId() {

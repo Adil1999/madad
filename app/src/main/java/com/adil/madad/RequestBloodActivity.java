@@ -147,7 +147,7 @@ public class RequestBloodActivity extends AppCompatActivity {
     private void confirm_request(String addr, String num1, String num2, String bloodType) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("BloodRequests").push().setValue(
-                new BloodRequest(userData.getName(), userData.getId(), userData.getImg(), addr, num1, num2, bloodType)
+                new BloodRequest(userData.getName(), userData.getId(), userData.getImg(), addr, num1, num2, bloodType,"active")
         );
     }
 }

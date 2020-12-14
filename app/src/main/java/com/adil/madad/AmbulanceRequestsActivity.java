@@ -1,5 +1,6 @@
 package com.adil.madad;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +32,17 @@ import java.util.List;
 public class AmbulanceRequestsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView tv, user;
-    ImageView iv;
+    TextView tv, _user;
     RecyclerView rv;
 
     List<AmbulanceRequest> requests;
     AmbulanceRvAdapter MyRvAdapter;
 
-//    Runnable r = new Runnable() {
-//        @Override
-//        public void run(){
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            ViewGroup viewGroup = findViewById(android.R.id.content);
-//            View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.custom_dialog, viewGroup, false);
-//            builder.setView(dialogView);
-//            AlertDialog alertDialog = builder.create();
-//            alertDialog.show();
-//        }
-//    };
+    FirebaseUser fuser;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
+    User userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,30 +51,68 @@ public class AmbulanceRequestsActivity extends AppCompatActivity {
 
         rv = findViewById(R.id.ambulanceReq);
         toolbar = findViewById(R.id.myAppBar);
-        user = toolbar.findViewById(R.id.name);
-        iv = toolbar.findViewById(R.id.image);
+        _user = toolbar.findViewById(R.id.name);
+        _user.setVisibility(View.GONE);
         tv = toolbar.findViewById(R.id.title);
-        tv.setText("PIMS Hospital");
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AmbulanceRequestsActivity.this, HospitalActivity.class));
-                finish();
+                onBackPressed();
             }
         });
-        requests = new ArrayList<>();
 
-        requests.add(new AmbulanceRequest("Adil Alam","1","","", "PIMS Hospital", "03143971614"));
-        requests.add(new AmbulanceRequest("Muzamil Hussain","1","","", "Al-Shifa Hospital", "03063364241"));
-        requests.add(new AmbulanceRequest("Haysam Bin Tahir","1","","", "Maroof Hospital", "+92143971614"));
-        requests.add(new AmbulanceRequest("Muhammad Ashjaeen","1","","", "Islamabad Hospital", "03143971614"));
-        requests.add(new AmbulanceRequest("Akash Ali","1","","", "Islamabad Hospital", "03083694161"));
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("AmbulanceRequests");
+
+        get_user();
+        getAmbulanceRequests();
 
         MyRvAdapter = new AmbulanceRvAdapter(requests, this);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         rv.setAdapter(MyRvAdapter);
+    }
+
+    public void getAmbulanceRequests() {
+        requests = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("AmbulanceRequests");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                requests.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    AmbulanceRequest ar = ds.getValue(AmbulanceRequest.class);
+                    requests.add(ar);
+                }
+                MyRvAdapter = new AmbulanceRvAdapter(requests, AmbulanceRequestsActivity.this);
+                rv.setAdapter(MyRvAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void get_user() {
+        reference = database.getReference("Users").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    userData = ds.getValue(User.class);
+                    tv.setText(userData.getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(AmbulanceRequestsActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

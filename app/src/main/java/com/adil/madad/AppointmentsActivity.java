@@ -6,10 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,27 +22,27 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BloodrequestsActivity extends AppCompatActivity {
+public class AppointmentsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView tv, _user;
     RecyclerView rv;
 
+    List<Appointment> appointments;
+    AppointmentRvAdapater MyRvAdapter;
+
     FirebaseUser fuser;
+    FirebaseDatabase database;
     DatabaseReference reference;
-
-
-    List<BloodRequest> requests;
-    BloodRvAdapter MyRvAdapter;
 
     User userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bloodrequests);
+        setContentView(R.layout.activity_appointments);
 
-        rv = findViewById(R.id.bloodReq);
+        rv = findViewById(R.id.ambulanceReq);
         toolbar = findViewById(R.id.myAppBar);
         _user = toolbar.findViewById(R.id.name);
         _user.setVisibility(View.GONE);
@@ -58,41 +56,22 @@ public class BloodrequestsActivity extends AppCompatActivity {
         });
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("BloodRequests");
+        database = FirebaseDatabase.getInstance();
 
         get_user();
-        getBloodRequests();
 
-        MyRvAdapter = new BloodRvAdapter(requests, this);
+        appointments = new ArrayList<>();
+
+        appointments.add(new Appointment("","Adil","123456","","Larkana","Dr Abbasi","Active"));
+
+        MyRvAdapter = new AppointmentRvAdapater(appointments, this);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         rv.setAdapter(MyRvAdapter);
     }
 
-    public void getBloodRequests() {
-        requests = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("BloodRequests");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                requests.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    BloodRequest br = ds.getValue(BloodRequest.class);
-                    requests.add(br);
-                }
-                MyRvAdapter = new BloodRvAdapter(requests, BloodrequestsActivity.this);
-                rv.setAdapter(MyRvAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     private void get_user() {
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        reference = database.getReference("Users").child(fuser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,9 +83,8 @@ public class BloodrequestsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(BloodrequestsActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AppointmentsActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

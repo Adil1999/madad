@@ -174,7 +174,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         getPermission();
-
         LocationListener mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -182,10 +181,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions()
                         .position(myLoc)
                         .title("My Location"));
-                update_userLoc(myLoc.latitude, myLoc.longitude);
+                //update_userLoc(myLoc.latitude, myLoc.longitude);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
-                new geo().execute(location.getLatitude(),location.getLongitude());
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                new geo().execute(location.getLatitude(),location.getLongitude());
             }
 
             @Override
@@ -264,7 +263,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            Log.d("Address is", result);
             Toast.makeText(getApplicationContext(), "The address is: " + result, Toast.LENGTH_LONG).show();
         }
     }

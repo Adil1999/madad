@@ -20,7 +20,6 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:id="@+id/person_photo"
-                android:padding="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/ic_baseline_account_circle_24" />
@@ -57,12 +56,26 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/accept"
                 android:layout_below="@+id/address"
-                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Accept"
                 android:background="@drawable/dialog_btn"
                 android:textColor="#0000ff"/>
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/status"
+                android:layout_below="@+id/address"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:text="Delete"
+                android:background="@drawable/status_bkd"
+                android:textColor="#FF0000"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
