@@ -182,20 +182,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions()
                         .position(myLoc)
                         .title("My Location"));
+                update_userLoc(myLoc.latitude, myLoc.longitude);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
-
                 new geo().execute(location.getLatitude(),location.getLongitude());
-
-//                Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
-//                List<Address> address = new ArrayList<>();
-//                try {
-//                    address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                String cityName = address.get(0).getAddressLine(0);
-//                Log.d("City is ", cityName);
-
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             }
 
             @Override
@@ -261,7 +251,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 addresses = geocoder.getFromLocation(params[0].doubleValue(), params[1].doubleValue(), 1);
                 address = addresses.get(0);
                 if (address != null) {
-                    return "Got your address : " + address.toString();
+                    return "Got your address : " + address.getLocality();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -291,6 +281,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     nav_name.setText(userData.getName());
                     Picasso.get().load(userData.getImg()).fit().centerCrop().into(iv);
                     Picasso.get().load(userData.getImg()).fit().centerCrop().into(civ);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MapsActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void update_userLoc(final double lat, final double lng) {
+        reference = database.getReference("Users").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String key = ds.getKey();
+                    reference.child(key).child("latitude").setValue(lat);
+                    reference.child(key).child("longtitude").setValue(lng);
+                    break;
                 }
             }
 

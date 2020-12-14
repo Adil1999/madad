@@ -55,11 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        database = FirebaseDatabase.getInstance();
 
         patientLogin = findViewById(R.id.btn2);
         hospitalLogin = findViewById(R.id.btn3);
@@ -70,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
             }
         });
 
@@ -78,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, HospitalLoginActivity.class));
-                finish();
             }
         });
     }
@@ -98,6 +92,52 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         getPermission();
+        if(user != null){
+            reference = database.getReference("Users").child(user.getUid());
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        userData = ds.getValue(User.class);
+                        if("true".equals(userData.getHospital().toString())){
+                            Intent intent = new Intent(MainActivity.this, HospitalActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else  {
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(MainActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void get_user(){
+        reference = database.getReference("Users").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    userData = ds.getValue(User.class);
+                    Log.d("User is", userData.getId());
+                    Log.d("User is", userData.getName());
+                    Log.d("User is", userData.getEmail());
+                    Log.d("User is", userData.getHospital().toString());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 

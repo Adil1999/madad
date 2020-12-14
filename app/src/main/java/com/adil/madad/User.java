@@ -4,9 +4,46 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     String id, name, email, img;
+    String address;
     Boolean isHospital;
+    Double longtitude, latitude;
 
     User(){}
+
+    public User(String id, String name, String email, String img, String address, Boolean isHospital, Double longtitude, Double latitude) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.img = img;
+        this.address = address;
+        this.isHospital = isHospital;
+        this.longtitude = longtitude;
+        this.latitude = latitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Double getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(Double longtitude) {
+        this.longtitude = longtitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
     public Boolean getHospital() {
         return isHospital;
@@ -14,14 +51,6 @@ public class User implements Serializable {
 
     public void setHospital(Boolean hospital) {
         isHospital = hospital;
-    }
-
-    User(String id, String n, String e, String img, Boolean isHospital){
-        this.id = id;
-        this.name = n;
-        this.email = e;
-        this.img = img;
-        this.isHospital = isHospital;
     }
 
     public String getId() {

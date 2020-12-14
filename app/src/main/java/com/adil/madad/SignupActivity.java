@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
     ImageView iv;
 
     EditText name, email, password, cPassword;
-    Button signup;
+    Button signup, login;
     CircleImageView profile;
     Uri imagePath;
 
@@ -67,8 +67,7 @@ public class SignupActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                finish();
+                onBackPressed();
             }
         });
 
@@ -80,6 +79,14 @@ public class SignupActivity extends AppCompatActivity {
         cPassword = findViewById(R.id.cn_password);
         signup = findViewById(R.id.sign_up);
         profile = findViewById(R.id.imag);
+        login = findViewById(R.id.login);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +181,7 @@ public class SignupActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onSuccess(Uri uri) {
                                                             String img = uri.toString();
-                                                            reference.push().setValue(new User(user.getUid(), txt_name, txt_email, img, false));
+                                                            reference.push().setValue(new User(user.getUid(), txt_name, txt_email, img, "", false, -1.0, -1.0));
                                                             Intent intent = new Intent(SignupActivity.this, MapsActivity.class);
                                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                             startActivity(intent);
