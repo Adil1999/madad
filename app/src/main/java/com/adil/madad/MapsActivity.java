@@ -28,6 +28,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -91,6 +92,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     CircleImageView civ;
     TextView nav_email;
     TextView nav_name;
+    ImageView im;
 
     private GoogleMap mMap;
     Location mLastLocation;
@@ -105,6 +107,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         toolbar = (Toolbar) findViewById(R.id.myAppBar);
         iv = findViewById(R.id.image);
+        im = findViewById(R.id.menu);
         _user = findViewById(R.id.name);
         dl = (DrawerLayout) findViewById(R.id.nav_drawer);
         nv = (NavigationView) findViewById(R.id.nv);
@@ -112,6 +115,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         civ = header.findViewById(R.id.profile);
         nav_email = header.findViewById(R.id.email);
         nav_name = header.findViewById(R.id.name);
+
+        toolbar.setContentInsetsAbsolute(0, 0);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -123,11 +131,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestAmbulance = findViewById(R.id.ambulance);
         findDoc = findViewById(R.id.doc);
 
-        toolbar.setContentInsetsAbsolute(0, 0);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
 
         get_user();
 
@@ -135,8 +138,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         dl.addDrawerListener(t);
         t.setDrawerIndicatorEnabled(true);
         t.syncState();
-
         set_navigation();
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dl.openDrawer(Gravity.LEFT);
+            }
+        });
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

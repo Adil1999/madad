@@ -1,6 +1,7 @@
 package com.adil.madad;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,18 +54,20 @@ public class HospitalActivity extends AppCompatActivity {
     TextView nav_name;
 
     Button addDoc, ambulanceRequests, bloodRequests, docAppointments, doctors;
+    ImageView im;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
 
-        toolbar = findViewById(R.id.myAppBar);
+        toolbar = (Toolbar) findViewById(R.id.appBar);
         addDoc = findViewById(R.id.AddDoc);
         ambulanceRequests = findViewById(R.id.AmbulanceRequests);
         bloodRequests = findViewById(R.id.BloodRequests);
         docAppointments = findViewById(R.id.appointments);
         doctors = findViewById(R.id.doctors);
+        im = findViewById(R.id.menu);
 
         tv = toolbar.findViewById(R.id.title);
         dl = (DrawerLayout) findViewById(R.id.nav_drawer);
@@ -76,8 +80,22 @@ public class HospitalActivity extends AppCompatActivity {
 
         toolbar.setContentInsetsAbsolute(0, 0);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(true);
+        }
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dl.openDrawer(Gravity.LEFT);
+            }
+        });
+        t = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        dl.addDrawerListener(t);
+        t.setDrawerIndicatorEnabled(true);
+        t.syncState();
+        set_navigation();
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -85,13 +103,6 @@ public class HospitalActivity extends AppCompatActivity {
         reference = database.getReference("Users").child(user.getUid());
 
         get_user();
-
-        t = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        dl.addDrawerListener(t);
-        t.setDrawerIndicatorEnabled(true);
-        t.syncState();
-
-        set_navigation();
 
         addDoc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +161,6 @@ public class HospitalActivity extends AppCompatActivity {
         });
     }
 
-
     public void nav_logout() {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(HospitalActivity.this, MainActivity.class);
@@ -193,6 +203,10 @@ public class HospitalActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){ // use android.R.id
+            dl.openDrawer(Gravity.LEFT);
+        }
+
         if (t.onOptionsItemSelected(item))
             return true;
 
