@@ -75,6 +75,7 @@
                 android:layout_marginBottom="24dp"
                 android:text="Log In with Google"
                 android:background="@drawable/google_btn"
+                android:visibility="gone"
                 android:drawableLeft="@drawable/ic_google"/>
         </LinearLayout>
     </LinearLayout>

@@ -97,6 +97,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:text="Sign Up with Google"
                 android:background="@drawable/google_btn"
                 android:drawableLeft="@drawable/ic_google"/>

@@ -85,8 +85,10 @@ public class AppointmentsActivity extends AppCompatActivity {
                 appointments.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Appointment appointment = ds.getValue(Appointment.class);
-                    if(appointment.getStatus().equals("active")){
-                        appointments.add(appointment);
+                    if(appointment.getHospital().equals(userData.getName())){
+                        if(appointment.getStatus().equals("active")){
+                            appointments.add(appointment);
+                        }
                     }
                 }
                 MyRvAdapter = new AppointmentRvAdapater(appointments, AppointmentsActivity.this);
