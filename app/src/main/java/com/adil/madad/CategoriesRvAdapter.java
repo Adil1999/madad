@@ -22,11 +22,13 @@ class CategoriesRvAdapter extends RecyclerView.Adapter<CategoriesRvAdapter.MyVie
     public static final int right = 1;
 
     List<String> ls;
+    List<Doctors> doctors;
     Context c;
 
-    CategoriesRvAdapter(List ls, Context c) {
+    CategoriesRvAdapter(List ls, List<Doctors> doctors, Context c) {
         this.ls = ls;
         this.c = c;
+        this.doctors = doctors;
     }
 
     @NonNull

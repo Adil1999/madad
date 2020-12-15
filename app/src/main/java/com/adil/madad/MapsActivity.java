@@ -54,6 +54,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
@@ -105,7 +106,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        toolbar = (Toolbar) findViewById(R.id.myAppBar);
+        toolbar = (Toolbar) findViewById(R.id.appBar);
         iv = findViewById(R.id.image);
         im = findViewById(R.id.menu);
         _user = findViewById(R.id.name);
@@ -186,13 +187,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onLocationChanged(Location location) {
                 LatLng myLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                //new geo().execute(location.getLatitude(),location.getLongitude());
+
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                builder.include(new LatLng(location.getLatitude(),location.getLongitude()));
+                LatLngBounds bounds = builder.build();
+                mMap.clear();
                 mMap.addMarker(new MarkerOptions()
-                        .position(myLoc)
+                        .position(new LatLng(location.getLatitude(), location.getLongitude()))
                         .title("My Location"));
-                //update_userLoc(myLoc.latitude, myLoc.longitude);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-                new geo().execute(location.getLatitude(),location.getLongitude());
             }
 
             @Override

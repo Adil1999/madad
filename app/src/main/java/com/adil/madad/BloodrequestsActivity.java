@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +43,8 @@ public class BloodrequestsActivity extends AppCompatActivity {
     BloodRvAdapter MyRvAdapter;
 
     User userData;
+    LatLng userLatLng;
+    LatLng hospitalLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +85,15 @@ public class BloodrequestsActivity extends AppCompatActivity {
                 requests.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     BloodRequest br = ds.getValue(BloodRequest.class);
+                    userLatLng = getPoints(br.getAddress());
+                    hospitalLatLng = getPoints(userData.getAddress());
+                    double dist = 0.0;
+                    dist = distance(userLatLng.latitude, userLatLng.longitude, hospitalLatLng.latitude, hospitalLatLng.longitude);
+                    Log.d("Distance is ", Double.toString(dist));
                     if(br.getStatus().equals("active")){
-                        requests.add(br);
+                        if(dist < 20.00){
+                            requests.add(br);
+                        }
                     }
                 }
                 MyRvAdapter = new BloodRvAdapter(requests, BloodrequestsActivity.this);
@@ -109,6 +123,48 @@ public class BloodrequestsActivity extends AppCompatActivity {
                 Toast.makeText(BloodrequestsActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public LatLng getPoints(String strAddress) {
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        LatLng latLng = null;
+        try {
+            address = coder.getFromLocationName(strAddress, 3);
+
+            //check for null
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            //return latLng;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return latLng;
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 
 }
