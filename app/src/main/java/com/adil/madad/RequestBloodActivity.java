@@ -127,7 +127,7 @@ public class RequestBloodActivity extends AppCompatActivity {
 
                 confirm_request(txt_address, txt_number, txt_sec, bloodType);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
                 View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.request_dialog, null);
                 builder.setView(dialogView);
                 builder.setCancelable(true);

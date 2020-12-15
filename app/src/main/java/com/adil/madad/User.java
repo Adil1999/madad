@@ -3,14 +3,14 @@ package com.adil.madad;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    String id, name, email, img;
+    String id, name, email, img, number;
     String address;
     Boolean isHospital;
     Double longtitude, latitude;
 
     User(){}
 
-    public User(String id, String name, String email, String img, String address, Boolean isHospital, Double longtitude, Double latitude) {
+    public User(String id, String name, String email, String img, String address, Boolean isHospital, Double longtitude, Double latitude, String number) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -19,6 +19,15 @@ public class User implements Serializable {
         this.isHospital = isHospital;
         this.longtitude = longtitude;
         this.latitude = latitude;
+        this.number = number;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getAddress() {

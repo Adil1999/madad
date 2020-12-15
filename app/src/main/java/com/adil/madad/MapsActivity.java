@@ -39,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -97,12 +98,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     LatLng userLatLng;
-    Location mLastLocation;
-    Marker mCurrLocationMarker;
-    GoogleApiClient mGoogleApiClient;
-    LocationRequest mLocationRequest;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +123,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -147,11 +152,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 dl.openDrawer(Gravity.LEFT);
             }
         });
-
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         requestBlood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +229,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 10, mLocationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 10, mLocationListener);
 
     }
 

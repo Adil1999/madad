@@ -54,12 +54,12 @@
 
             <Button
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:id="@+id/contact"
+                android:id="@+id/add"
                 android:layout_below="@+id/timings"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Contact Now"
+                android:text="Request Appointment"
                 android:visibility="gone"
                 android:padding="5dp"
                 android:background="@drawable/dialog_btn"

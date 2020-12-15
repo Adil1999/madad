@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -42,14 +43,22 @@ class CategoriesRvAdapter extends RecyclerView.Adapter<CategoriesRvAdapter.MyVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.btn1.setText(ls.get(position));
         holder.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String area = ls.get(position);
+                List<Doctors> doc = new ArrayList<>();
+                for(Doctors doctor: doctors){
+                    if(doctor.getArea().equals(area)){
+                        doc.add(doctor);
+                        Log.d("Doctor is", doctor.getName());
+                    }
+                }
                 Intent intent = new Intent(v.getRootView().getContext(), DoctorsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("Doctors", (Serializable) doctors);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("Doctors", (Serializable) doc);
                 v.getRootView().getContext().startActivity(intent);
             }
         });
@@ -80,4 +89,9 @@ class CategoriesRvAdapter extends RecyclerView.Adapter<CategoriesRvAdapter.MyVie
             return  left;
         }
     }
+
+    private void get_Doctors(){
+
+    }
+
 }

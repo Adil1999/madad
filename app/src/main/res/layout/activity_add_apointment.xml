@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RequestAmbulanceActivity">
+    tools:context=".AddApointmentActivity">
+
 
     <include
         layout="@layout/appbar"/>
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="Request Ambulance"
+        android:text="Add Appointment"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         android:background="#EAEAEA"/>
 
@@ -31,6 +32,14 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/patient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Patient Name"
+                android:inputType="textPersonName"
+                android:layout_margin="20dp"/>
+
+            <EditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,14 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
-                android:inputType="number"
-                android:layout_margin="20dp"/>
-
-            <EditText
-                android:id="@+id/secondaryNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Secondary Phone Number"
                 android:inputType="number"
                 android:layout_margin="20dp"/>
         </LinearLayout>

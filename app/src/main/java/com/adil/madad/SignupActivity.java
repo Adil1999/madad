@@ -48,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
     TextView _user;
     ImageView iv;
 
-    EditText name, email, password, cPassword;
+    EditText name, email, number, password, cPassword;
     Button signup, login;
     CircleImageView profile;
     Uri imagePath;
@@ -78,6 +78,7 @@ public class SignupActivity extends AppCompatActivity {
         password = findViewById(R.id.user_password);
         cPassword = findViewById(R.id.cn_password);
         signup = findViewById(R.id.sign_up);
+        number = findViewById(R.id.number);
         profile = findViewById(R.id.imag);
         login = findViewById(R.id.login);
 
@@ -104,6 +105,7 @@ public class SignupActivity extends AppCompatActivity {
                 Log.i("IN SIGNUP Activity:", "Sign UP Button");
                 final String txt_name = name.getText().toString().trim();
                 final String txt_email = email.getText().toString().trim();
+                final String txt_number = number.getText().toString().trim();
                 final String txt_password = password.getText().toString().trim();
                 final String txt_cpassword = cPassword.getText().toString().trim();
 
@@ -113,6 +115,10 @@ public class SignupActivity extends AppCompatActivity {
                 }
                 if (TextUtils.isEmpty(txt_email)) {
                     Toast.makeText(SignupActivity.this, "Pleae Enter Email", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(txt_number)) {
+                    Toast.makeText(SignupActivity.this, "Pleae Enter Number", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (TextUtils.isEmpty(txt_password)) {
@@ -130,7 +136,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (imagePath != null) {
                     if (txt_password.equals(txt_cpassword)) {
-                        registerOnfirebase(txt_email, txt_password, txt_name);
+                        registerOnfirebase(txt_email, txt_password, txt_name, txt_number);
                     } else {
                         Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_LONG).show();
                         return;
@@ -158,7 +164,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    private void registerOnfirebase(final String txt_email, String txt_password, final String txt_name) {
+    private void registerOnfirebase(final String txt_email, String txt_password, final String txt_name, final String txt_number) {
         firebaseAuth.createUserWithEmailAndPassword(txt_email, txt_password)
                 .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -181,7 +187,9 @@ public class SignupActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onSuccess(Uri uri) {
                                                             String img = uri.toString();
-                                                            reference.push().setValue(new User(user.getUid(), txt_name, txt_email, img, "", false, -1.0, -1.0));
+                                                            reference.push().setValue(
+                                                                    new User(user.getUid(), txt_name, txt_email, img, "", false, -1.0, -1.0, txt_number)
+                                                            );
                                                             Intent intent = new Intent(SignupActivity.this, MapsActivity.class);
                                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                             startActivity(intent);

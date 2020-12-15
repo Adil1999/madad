@@ -68,18 +68,18 @@ public class DoctorsActivity extends AppCompatActivity {
         if( b!=null ){
             doctors = (ArrayList<Doctors>) getIntent().getSerializableExtra("Doctors");
 
-            Log.d("Doctor is", doctors.get(0).getName());
-            Log.d("Doctor is", doctors.get(1).getName());
+//            Log.d("Doctor is", doctors.get(0).getName());
+//            Log.d("Doctor is", doctors.get(1).getName());
 
 
-            MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this);
+            MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this, true);
             RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
             rv.setLayoutManager(lm);
             rv.setAdapter(MyRvAdapter);
         }
         else {
             get_Doctors();
-            MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this);
+            MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this, false);
             RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
             rv.setLayoutManager(lm);
             rv.setAdapter(MyRvAdapter);
@@ -100,7 +100,7 @@ public class DoctorsActivity extends AppCompatActivity {
                         doctors.add(doctor);
                     }
                 }
-                MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this);
+                MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this, false);
                 rv.setAdapter(MyRvAdapter);
             }
 

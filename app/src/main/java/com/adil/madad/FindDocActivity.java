@@ -75,7 +75,6 @@ public class FindDocActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             userLatlng = (LatLng) getIntent().getExtras().getParcelable("UserData"); //Obtaining data
-            Log.d("latlng: ", userLatlng.toString());
         }
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -88,10 +87,10 @@ public class FindDocActivity extends AppCompatActivity {
         categories.add("Dermatologist");
         categories.add("Pediatrician");
         categories.add("Endocrinologist");
-        categories.add("Neurologist");
+        categories.add("Psychiatrist");
         categories.add("Cardiologist");
         categories.add("Physician");
-        categories.add("Nephnrologist");
+        categories.add("Nephrologist");
 
 
         get_user();
@@ -116,12 +115,11 @@ public class FindDocActivity extends AppCompatActivity {
                         for (DataSnapshot ds2 : ds.getChildren()) {
                             User hospital = ds2.getValue(User.class);
                             if("true".equals(hospital.getHospital().toString())){
-                                double hospitalLat = hospital.getLatitude();
-                                double hospitalLng = hospital.getLongtitude();
-                                double dist = distance(userLatlng.latitude, userLatlng.longitude, hospitalLat, hospitalLng);
+                                String address = hospital.getAddress();
+                                LatLng hospitalLatlng = getPoints(address);
+                                double dist = distance(userLatlng.latitude, userLatlng.longitude, hospitalLatlng.latitude, hospitalLatlng.longitude);
                                 if(dist <= 20.00){ //All hospital addresses within distance of 20kms will be added
                                     hospitals.add(hospital.getName());
-                                    Log.d("Hospial is", hospital.getAddress());
                                 }
                             }
                         }

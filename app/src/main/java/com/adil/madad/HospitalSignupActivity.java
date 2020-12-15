@@ -149,7 +149,7 @@ public class HospitalSignupActivity extends AppCompatActivity {
                             user = firebaseAuth.getCurrentUser();
                             database = FirebaseDatabase.getInstance();
                             reference = database.getReference("Users").child(user.getUid());
-                            reference.push().setValue(new User(user.getUid(), txt_name, txt_email, "", address, true, lang, lat));
+                            reference.push().setValue(new User(user.getUid(), txt_name, txt_email, "", address, true, lang, lat,""));
                             Intent intent = new Intent(HospitalSignupActivity.this, HospitalActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
