@@ -11,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,7 +30,7 @@ public class AppointmentRvAdapater extends RecyclerView.Adapter<AppointmentRvAda
     private List<Appointment> ls;
     Context c;
     Runnable r;
-    View.OnClickListener mMyOnClickListener;
+    FirebaseUser fuser;
 
     public AppointmentRvAdapater(List<Appointment> ls, Context c) {
         this.ls = ls;
@@ -41,6 +48,8 @@ public class AppointmentRvAdapater extends RecyclerView.Adapter<AppointmentRvAda
     public void onBindViewHolder(@NonNull AppointmentRvAdapater.MyViewHolder holder, final int position) {
         holder.name.setText(ls.get(position).getName());
         holder.number.setText(ls.get(position).getNumber());
+        holder.doctor.setText(ls.get(position).getDocName());
+        Picasso.get().load(ls.get(position).getImg()).fit().centerCrop().into(holder.img);
         holder.isAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,9 +68,35 @@ public class AppointmentRvAdapater extends RecyclerView.Adapter<AppointmentRvAda
                         ((Activity)c).finish();
                     }
                 });
-                //AlertDialog alertDialog = builder.create();
-                //alertDialog.show();
+            }
+        });
 
+        holder.status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fuser = FirebaseAuth.getInstance().getCurrentUser();
+                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Appointments");
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                            Appointment appointment = ds.getValue(Appointment.class);
+                            if(appointment.getDocName().equals(ls.get(position).getDocName())
+                            && appointment.getName().equals(ls.get(position).getName())
+                            && appointment.getNumber().equals(ls.get(position).getNumber())){
+                                String key = ds.getKey();
+                                ref.child(key).child("status").setValue("completed");
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }

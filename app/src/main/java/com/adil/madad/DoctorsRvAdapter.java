@@ -61,6 +61,7 @@ public class DoctorsRvAdapter extends RecyclerView.Adapter<DoctorsRvAdapter.MyVi
                 Intent intent = new Intent(c, AddApointmentActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("doctor", ls.get(position).getName());
+                intent.putExtra("hospital", ls.get(position).getHospital());
                 c.startActivity(intent);
             }
         });

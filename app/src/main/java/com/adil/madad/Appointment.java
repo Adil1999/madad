@@ -8,8 +8,11 @@ public class Appointment {
     String address;
     String docName;
     String status;
+    String hospital;
 
-    public Appointment(String id, String name, String number, String img, String address, String docName, String status) {
+    Appointment(){}
+
+    public Appointment(String id, String name, String number, String img, String address, String docName, String status, String hospital) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -17,6 +20,15 @@ public class Appointment {
         this.address = address;
         this.docName = docName;
         this.status = status;
+        this.hospital = hospital;
+    }
+
+    public String getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
     }
 
     public String getId() {

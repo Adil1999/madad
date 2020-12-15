@@ -70,6 +70,7 @@ public class AddApointmentActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         final String docName = intent.getStringExtra("doctor");
+        final String hosp = intent.getStringExtra("hospital");
         Log.d("Doctor is ", docName);
 
 
@@ -98,7 +99,7 @@ public class AddApointmentActivity extends AppCompatActivity {
                     Toast.makeText(AddApointmentActivity.this, "Please Enter Patient's Name", Toast.LENGTH_LONG).show();
                     return;
                 }
-                addAppointment(txt_name, docName, txt_address);
+                addAppointment(txt_name, docName, txt_address, hosp);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddApointmentActivity.this);
                 View dialogView = LayoutInflater.from(AddApointmentActivity.this).inflate(R.layout.request_dialog, null);
@@ -139,10 +140,10 @@ public class AddApointmentActivity extends AppCompatActivity {
         });
     }
 
-    private void addAppointment(String patient, String doc, String address) {
+    private void addAppointment(String patient, String doc, String address, String hospital) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("Appointments").push().setValue(
-                new Appointment(fuser.getUid(), patient, userData.getNumber(), userData.getImg(), address, doc, "active")
+                new Appointment(fuser.getUid(), patient, userData.getNumber(), userData.getImg(), address, doc, "active",hospital)
         );
     }
 }
