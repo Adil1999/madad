@@ -1,6 +1,8 @@
 package com.adil.madad;
 
-public class Doctors {
+import java.io.Serializable;
+
+public class Doctors implements Serializable {
     String id, name, licenseId, email, number, area, hospital, timmings;
 
     Doctors(){}

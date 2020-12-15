@@ -30,9 +30,9 @@ public class DoctorsRvAdapter extends RecyclerView.Adapter<DoctorsRvAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name.setText(ls.get(position).name);
-        holder.hospital.setText(ls.get(position).hospital);
-        holder.timings.setText(ls.get(position).timmings);
+        holder.name.setText(ls.get(position).getName());
+        holder.hospital.setText(ls.get(position).getHospital());
+        holder.timings.setText(ls.get(position).getTimmings());
         holder.area.setText(ls.get(position).getArea());
     }
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,13 +62,28 @@ public class DoctorsActivity extends AppCompatActivity {
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance();
 
+        doctors = new ArrayList<Doctors>();
         get_user();
-        get_Doctors();
+        Bundle b = getIntent().getExtras();
+        if( b!=null ){
+            doctors = (ArrayList<Doctors>) getIntent().getSerializableExtra("Doctors");
 
-        MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
-        rv.setLayoutManager(lm);
-        rv.setAdapter(MyRvAdapter);
+            Log.d("Doctor is", doctors.get(0).getName());
+            Log.d("Doctor is", doctors.get(1).getName());
+
+
+            MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this);
+            RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
+            rv.setLayoutManager(lm);
+            rv.setAdapter(MyRvAdapter);
+        }
+        else {
+            get_Doctors();
+            MyRvAdapter = new DoctorsRvAdapter(doctors, DoctorsActivity.this);
+            RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
+            rv.setLayoutManager(lm);
+            rv.setAdapter(MyRvAdapter);
+        }
 
     }
 

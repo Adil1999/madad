@@ -96,6 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     ImageView im;
 
     private GoogleMap mMap;
+    LatLng userLatLng;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     GoogleApiClient mGoogleApiClient;
@@ -174,7 +175,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, FindDocActivity.class);
-                intent.putExtra("UserData", userData);
+                intent.putExtra("UserData", userLatLng);
                 startActivity(intent);
             }
         });
@@ -187,6 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onLocationChanged(Location location) {
                 LatLng myLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 //new geo().execute(location.getLatitude(),location.getLongitude());
 
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
